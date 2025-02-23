@@ -13,6 +13,7 @@ async fn main() -> std::io::Result<()> {
             .service(controllers::user_controller::create_user)
             .service(controllers::user_controller::delete_user)
             .service(controllers::user_controller::update_user)
+            .service(controllers::user_controller::batch_create_user)
     })
     .bind(("127.0.0.1", 8080))?
     .run()

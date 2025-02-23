@@ -8,7 +8,7 @@ use crate::domain::dtos::user_dto::UserDTO;
 
 
 #[get("/")]
-pub async fn hello(req: HttpRequest) -> HttpResponse {
+pub async fn hello(_: HttpRequest) -> HttpResponse {
     return HttpResponse::Ok().body("Hello world!");
 }
 
@@ -63,6 +63,20 @@ pub async fn update_user(request_body: web::Json<UserDTO>, id: web::Path<String>
     let res = user_dao.update(&user).await;
     if res {
         return HttpResponse::new(StatusCode::OK);
+    }
+    return HttpResponse::new(StatusCode::UNPROCESSABLE_ENTITY);
+}
+
+#[post("/users/batch")]
+pub async fn batch_create_user(request_body: web::Json<Vec<UserDTO>>) -> HttpResponse {
+    let user_dao = UserDAOMongoDB {};
+    let mut users: Vec<User> = Vec::new();
+    for u in request_body.iter() {
+        users.push(User {id: String::new(), name: String::from(&u.name), age: u.age, active: true});
+    }
+    let res = user_dao.insert_many(&users).await;
+    if res {
+        return HttpResponse::new(StatusCode::CREATED);
     }
     return HttpResponse::new(StatusCode::UNPROCESSABLE_ENTITY);
 }
