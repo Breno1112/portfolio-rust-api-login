@@ -2,7 +2,7 @@ use actix_web::http::header::ContentType;
 use actix_web::http::StatusCode;
 use actix_web::{delete, get, post, put, web, HttpRequest, HttpResponse};
 
-use crate::daos::user::implementation::user_mongodb_impl::UserDAOMongoDB;
+use crate::daos::user::user_mongodb_impl::UserDAOMongoDB;
 use crate::daos::user::user_dao::{User, UserDAO};
 use crate::domain::dtos::user_dto::UserDTO;
 
