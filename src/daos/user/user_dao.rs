@@ -2,14 +2,14 @@ use serde::Serialize;
 
 #[derive(Serialize)]
 pub struct User {
-    id: String,
-    name: String,
-    age: i32,
-    active: bool
+    pub id: String,
+    pub name: String,
+    pub age: u32,
+    pub active: bool
 }
 
 impl User {
-    pub fn new(id: String, name: String, age: i32, active: bool) -> User {
+    pub fn new(id: String, name: String, age: u32, active: bool) -> User {
         return User {
             id: id,
             name: name,
